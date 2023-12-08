@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical Ontology Papers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            padding: 15px;
+            border-bottom: 1px #ccc dotted;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        li strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Medical Ontology Papers</h1>
+
+    <section>
+        <h2>Last Day</h2>
+        <ul>
+            {% for title in papers_day %}
+                {% with paper = papers[title] %}
+                <li>
+                    <strong>Title:</strong> {{ title }}<br>
+                    <strong>Authors:</strong> {{ ', '.join(paper['authors']) }}<br>
+                    <strong>Publication Date:</strong> {{ paper['publicationDate'] }}<br>
+                    <strong>Published In:</strong> {{ paper['publishedIn'] }}<br>
+                    <strong>Cites Work:</strong> {{ ', '.join(paper['citesWork']) }}
+                </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Last Month</h2>
+        <ul>
+            {% for title in papers_month %}
+                {% with paper = papers[title] %}
+                <li>
+                    <strong>Title:</strong> {{ title }}<br>
+                    <strong>Authors:</strong> {{ ', '.join(paper['authors']) }}<br>
+                    <strong>Publication Date:</strong> {{ paper['publicationDate'] }}<br>
+                    <strong>Published In:</strong> {{ paper['publishedIn'] }}<br>
+                    <strong>Cites Work:</strong> {{ ', '.join(paper['citesWork']) }}
+                </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Last Year</h2>
+        <ul>
+            {% for title in papers_year %}
+                {% with paper = papers[title] %}
+                <li>
+                    <strong>Title:</strong> {{ title }}<br>
+                    <strong>Authors:</strong> {{ ', '.join(paper['authors']) }}<br>
+                    <strong>Publication Date:</strong> {{ paper['publicationDate'] }}<br>
+                    <strong>Published In:</strong> {{ paper['publishedIn'] }}<br>
+                    <strong>Cites Work:</strong> {{ ', '.join(paper['citesWork']) }}
+                </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    </section>
+
+<section>
+    <h2>Top Scientific Authors</h2>
+    <ul>
+        {% for author in top_authors %}
+            <li>
+                <strong>Name:</strong> {{ author.name }}<br>
+                <strong>Academic Affiliation:</strong> {{ author.affiliation }}<br>
+                <strong>Citations:</strong> {{ author.citations }}
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+</body>
+</html>

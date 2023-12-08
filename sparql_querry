@@ -1,0 +1,24 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?paperTitle ?publicationDate ?authorName ?publishedIn ?citesWork WHERE {
+  ?paper wdt:P31 wd:Q13442814; # Scholarly article
+         wdt:P921 wd:Q324254;  # Main subject is ontology
+         wdt:P577 ?publicationDate; # Publication date
+         p:P2093 ?authorStatement. # Author name string
+
+  OPTIONAL { ?paper wdt:P1433 ?journal. # Published in
+             ?journal rdfs:label ?publishedIn FILTER(LANG(?publishedIn) = "en"). }
+
+  OPTIONAL { ?paper wdt:P2860 ?citedWork. # Cites work
+             ?citedWork rdfs:label ?citesWork FILTER(LANG(?citesWork) = "en"). }
+
+  ?authorStatement ps:P2093 ?authorName.
+
+  OPTIONAL { ?paper rdfs:label ?title FILTER(LANG(?title) = "en"). }
+  BIND(COALESCE(?title, "No title available") AS ?paperTitle)
+}
